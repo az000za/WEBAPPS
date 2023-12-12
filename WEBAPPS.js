@@ -21,12 +21,6 @@ class WEBAPPS {
   async useAPP(appName){
     
   }
-  useGenericUI(){
-    
-  }
-  useCustomUI(){
-    
-  }
   parseAPP(webAppLink){
     const url = webAppLink;
     const fileName = filePath.slice().split('/').pop();
@@ -62,6 +56,9 @@ class WEBAPPS {
         css = css;
         javascript = javascript;
         constructor(){
+          
+        }
+        init(){
           
         }
         renderGenericUI(){
