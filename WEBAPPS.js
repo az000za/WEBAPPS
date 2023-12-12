@@ -59,7 +59,10 @@ class WEBAPPS {
           
         }
         init(){
-          
+          console.error("init unprogrammed");          
+        }
+        permissions(){
+          console.error("permissions unprogrammed");
         }
         renderGenericUI(){
           console.error("renderGenericUI unprogrammed");
