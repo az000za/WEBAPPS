@@ -87,15 +87,38 @@ class WEBAPPS {
   }
   parseJavaScript(htmlDoc){
       const scriptTags = htmlDoc.querySelectorAll('script');
-
       // Loop through each script tag
       scriptTags.forEach((scriptTag, index) => {
         const scriptContent = scriptTag.textContent;
-        const globalVariables = {};
-        const functions = {};
-        const classes = {};
-    
+        // Class declaration extraction
+        const classRegex = /class\s+([a-zA-Z0-9_$]+)\s*\{(.*?)\}(?:;|$)/gm;
+        let classMatch;
+        while ((classMatch = classRegex.exec(scriptContent))) {
+           this.extractGlobalScopeFunctions({}, scriptContent);
+           this.extractGlobalClassFunctions({}, scriptContent);
+           this.extractGlobalVariables({}, scriptContent);    
+            this.Apps[AppName]["javascript"] = {
+              globalVariables,
+              functions,
+              classes,
+            };
+      });
+  }
+  extractGlobalScopeVariables(variables, scriptContent) {
+    // Initialize an empty array to store extracted variables
+    variables = [];
+    const variableRegex = /(?<!\bfunction\b)\b(var|let|const)\s+([a-zA-Z$_0-9]+)(?=\s*=\s*|,$)/gm;
+    const matches = scriptContent.match(variableRegex);
+    if (matches) {
+      // Push each extracted variable name to the variables array
+      matches.forEach(match => {
+        variables[match] = match.split(/\s+/)[1]
+      });
+    }
+  }
+  extractGlobalScopeFunctions(functions, scriptContent){
         // Function declaration extraction
+        const functions = {};
         const functionRegex = /function\s+([a-zA-Z0-9_$]+)\s*\((.*?)\)\s*\{(.*?)\}(?:;|$)/gm;
         let functionMatch;
         while ((functionMatch = functionRegex.exec(scriptContent))) {
@@ -104,57 +127,41 @@ class WEBAPPS {
           const functionBody = functionMatch[3];
           functions[functionName] = new Function(functionParameters, functionBody);
         }
-    
-        // Class declaration extraction
-        const classRegex = /class\s+([a-zA-Z0-9_$]+)\s*\{(.*?)\}(?:;|$)/gm;
-        let classMatch;
-        while ((classMatch = classRegex.exec(scriptContent))) {
-          const className = classMatch[1];
-          const classBody = classMatch[2];
-    
-          // Define a new class constructor
-          class [className] {
-            constructor() {
-              // Extract and define constructor arguments
-              const constructorRegex = /constructor\s*\((.*?)\)\s*\{(.*?)\}(?:;|$)/gm;
-              const constructorMatch = constructorRegex.exec(classBody);
-              if (constructorMatch) {
-                const constructorParameters = constructorMatch[1];
-                const constructorBody = constructorMatch[2];
-                // Convert constructor parameters to an actual array
-                const argsArray = constructorParameters.split(",").map(p => p.trim());
-                // Evaluate the constructor body with the extracted parameters
-                eval(`this.constructor = new Function(${argsArray}, "${constructorBody}").bind(this)`);
-              }
-            }
-          }
-    
-          // Extract and define class methods
-          const methodRegex = /([a-zA-Z0-9_$]+)\s*\((.*?)\)\s*\{(.*?)\}(?:;|$)/gm;
-          let methodMatch;
-          while ((methodMatch = methodRegex.exec(classBody))) {
-            const methodName = methodMatch[1];
-            const methodParameters = methodMatch[2];
-            const methodBody = methodMatch[3];
-            // Convert method parameters to an actual array
-            const argsArray = methodParameters.split(",").map(p => p.trim());
-            // Define the method using a function constructor
-            classes[className][methodName] = new Function(argsArray, methodBody).bind(this);
-          }
-    
-          classes[className].prototype = Object.create(Object.prototype);
-        }
-    
-        // Variable declaration extraction
-        // ... existing code ...
-    
-        // Add extracted elements to app object
-        app[index + 1] = {
-          globalVariables,
-          functions,
-          classes,
-        };
-      });
+  }
+  extractGlobalScopeClasses(classes, scriptContent){
+      const className = classMatch[1];
+      const classBody = classMatch[2];
 
+      // Define a new class constructor
+      class [className] {
+        constructor() {
+          // Extract and define constructor arguments
+          const constructorRegex = /constructor\s*\((.*?)\)\s*\{(.*?)\}(?:;|$)/gm;
+          const constructorMatch = constructorRegex.exec(classBody);
+          if (constructorMatch) {
+            const constructorParameters = constructorMatch[1];
+            const constructorBody = constructorMatch[2];
+            // Convert constructor parameters to an actual array
+            const argsArray = constructorParameters.split(",").map(p => p.trim());
+            // Evaluate the constructor body with the extracted parameters
+            eval(`this.constructor = new Function(${argsArray}, "${constructorBody}").bind(this)`);
+          }
+        }
+      }
+
+      // Extract and define class methods
+      const methodRegex = /([a-zA-Z0-9_$]+)\s*\((.*?)\)\s*\{(.*?)\}(?:;|$)/gm;
+      let methodMatch;
+      while ((methodMatch = methodRegex.exec(classBody))) {
+        const methodName = methodMatch[1];
+        const methodParameters = methodMatch[2];
+        const methodBody = methodMatch[3];
+        // Convert method parameters to an actual array
+        const argsArray = methodParameters.split(",").map(p => p.trim());
+        // Define the method using a function constructor
+        classes[className][methodName] = new Function(argsArray, methodBody).bind(this);
+      }
+
+      classes[className].prototype = Object.create(Object.prototype);
   }
 }
