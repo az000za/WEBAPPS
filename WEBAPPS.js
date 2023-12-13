@@ -1,15 +1,14 @@
 class WEBAPPS {
   APPS = {};
   webAppLinks = [];
-  constructor(webAppLinks){
-      this.webAppLinks = webAppLinks;
-      this.fetchAPPS(webAppLinks);
-  }
+  constructor(webAppLinks){}
   async fetchAPPS(webAppLinks){
+      this.webAppLinks = webAppLinks;
       for (const url of webAppLinks) {
         await this.fetchApp(url);
       }
       console.log("this.APPS", this.APPS);
+      return this;
   }
   async fetchApp(url){
     fetch(url, {
