@@ -35,7 +35,7 @@ class WEBAPPS {
     const html = this.parseHTML(htmlDoc);
     const css = this.parseCSS(htmlDoc);
     const javascript = this.parseJavaScript(htmlDoc);
-    Apps[AppName] = function(){                        
+    this.Apps[AppName] = function(){                        
       return new class _ {
         peerID = 0;  // needs to generated
         html = html;
