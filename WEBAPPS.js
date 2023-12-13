@@ -61,6 +61,15 @@ class WEBAPPS {
         init(){
           console.error("init unprogrammed");          
         }
+        load(){
+          console.error("load unprogrammed");
+        }
+        refresh(){
+          console.error("refresh unprogrammed");
+        }
+        stop(){
+          console.error("stop unprogrammed");
+        }
         permissions(){
           console.error("permissions unprogrammed");
         }
@@ -70,7 +79,7 @@ class WEBAPPS {
         renderCustomUI(){
           console.error("renderCustomUI unprogrammed");
         }
-        update(){
+        updateUI(){
           console.error("update unprogrammed");
         }
       }
