@@ -19,7 +19,8 @@ class WEBAPPS {
         .then(this.parseHTMLAPP)
         .catch(error => console.error('Error importing HTML file:', url));
   }
-  async useAPP(appName){
+  useAPP(appName){
+    console.log("this.APPs", this.Apps);
     return this.Apps[appName];
   }
   parseHTMLAPP(webAppLink){
@@ -35,6 +36,7 @@ class WEBAPPS {
     const html = this.parseHTML(htmlDoc);
     const css = this.parseCSS(htmlDoc);
     const javascript = this.parseJavaScript(htmlDoc);
+    console.log("AppName", AppName);
     this.Apps[AppName] = function(){                        
       return new class _ {
         peerID = 0;  // needs to generated
