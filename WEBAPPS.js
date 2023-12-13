@@ -11,20 +11,22 @@ class WEBAPPS {
       return this;
   }
   async fetchApp(url){
+    console.log(`fetching url: `,url);
     fetch(url, {
           mode: "no-cors"
         })
         .then(response => response.text())
-        .then(this.parseHTMLAPP)
+        .then(data => { this.parseHTMLAPP(url, data); })
         .catch(error => console.error('Error importing HTML file:', url));
   }
   useAPP(appName){
     console.log("this.APPS", this.APPS);
     return this.APPS[appName];
   }
-  parseHTMLAPP(webAppLink){
+  parseHTMLAPP(webAppLink, data){
+    console.log("parsing url", webAppLink);
     const url = webAppLink;
-    const fileName = filePath.slice().split('/').pop();
+    const fileName = url.slice().split('/').pop();
     const _html_ = data;
     const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(_html_, 'text/html');
