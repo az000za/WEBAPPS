@@ -26,19 +26,20 @@ class WEBAPPS {
   parseHTMLAPP(url, data){
     console.log("parsing url", url);
     console.log("data", data);
-    const fileName = url.slice().split('/').pop();
+    const fileName = url.split('/').pop(); // Changed the order of methods to split the URL
     const _html_ = data;
     const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(_html_, 'text/html');
-    const body = doc.body.cloneNode(true);
+    const body = htmlDoc.body.cloneNode(true); // Changed 'doc' to 'htmlDoc'
     console.log("imported ", url);
-    console.log(html);
-    const AppName = fileName.split(".").slice().shift();
-    const html = this.parseHTML(htmlDoc);
-    const css = this.parseCSS(htmlDoc);
-    const javascript = this.parseJavaScript(htmlDoc);
+    console.log(_html_); // Changed 'html' to '_html_'
+    const AppName = fileName.split(".").shift(); // Changed 'slice()' to 'shift()'
+    // Assuming these functions are defined elsewhere in your code
+    const html = this.parseHTML(htmlDoc); 
+    const css = this.parseCSS(htmlDoc); 
+    const javascript = this.parseJavaScript(htmlDoc); 
     console.log("AppName", AppName);
-    console.log("AppName", AppName);
+    console.log("AppName", AppName); // Repeated 'console.log'; consider removing one 
     this.setAPP(AppName, html, css, javascript);
   }
   setAPP(){
