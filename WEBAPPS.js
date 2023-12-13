@@ -23,16 +23,15 @@ class WEBAPPS {
     console.log("this.APPS", this.APPS);
     return this.APPS[appName];
   }
-  parseHTMLAPP(webAppLink, data){
-    console.log("parsing url", webAppLink);
+  parseHTMLAPP(url, data){
+    console.log("parsing url", url);
     console.log("data", data);
-    const url = webAppLink;
     const fileName = url.slice().split('/').pop();
     const _html_ = data;
     const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(_html_, 'text/html');
     const body = doc.body.cloneNode(true);
-    console.log("imported ", filePath);
+    console.log("imported ", url);
     console.log(html);
     const AppName = fileName.split(".").slice().shift();
     const html = this.parseHTML(htmlDoc);
