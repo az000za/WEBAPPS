@@ -9,6 +9,7 @@ class WEBAPPS {
       for (const url of webAppLinks) {
         await this.fetchApp(url);
       }
+      console.log(this.Apps);
   }
   async fetchApp(url){
     fetch(url, {
@@ -19,7 +20,7 @@ class WEBAPPS {
         .catch(error => console.error('Error importing HTML file:', url));
   }
   async useAPP(appName){
-    
+    return this.Apps[appName];
   }
   parseHTMLAPP(webAppLink){
     const url = webAppLink;
@@ -34,7 +35,6 @@ class WEBAPPS {
     const html = this.parseHTML(htmlDoc);
     const css = this.parseCSS(htmlDoc);
     const javascript = this.parseJavaScript(htmlDoc);
-    console.log("AppName", AppName);
     Apps[AppName] = function(){                        
       return new class _ {
         peerID = 0;  // needs to generated
@@ -70,6 +70,7 @@ class WEBAPPS {
         }
       }
     }
+    console.log("AppName", AppName);
   }
   parseHTML(htmlDoc){
     const templateTags = htmlDoc.querySelectorAll('body');
