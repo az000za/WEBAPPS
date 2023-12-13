@@ -9,7 +9,7 @@ class WEBAPPS {
       for (const url of webAppLinks) {
         await this.fetchApp(url);
       }
-      console.log(this.Apps);
+      console.log("this.Apps", this.Apps);
   }
   async fetchApp(url){
     fetch(url, {
