@@ -1,5 +1,5 @@
 class WEBAPPS {
-  Apps = {};
+  APPS = {};
   webAppLinks = [];
   constructor(webAppLinks){
       this.webAppLinks = webAppLinks;
@@ -9,7 +9,7 @@ class WEBAPPS {
       for (const url of webAppLinks) {
         await this.fetchApp(url);
       }
-      console.log("this.Apps", this.Apps);
+      console.log("this.APPS", this.APPS);
   }
   async fetchApp(url){
     fetch(url, {
@@ -20,8 +20,8 @@ class WEBAPPS {
         .catch(error => console.error('Error importing HTML file:', url));
   }
   useAPP(appName){
-    console.log("this.APPs", this.Apps);
-    return this.Apps[appName];
+    console.log("this.APPS", this.APPS);
+    return this.APPS[appName];
   }
   parseHTMLAPP(webAppLink){
     const url = webAppLink;
@@ -37,7 +37,11 @@ class WEBAPPS {
     const css = this.parseCSS(htmlDoc);
     const javascript = this.parseJavaScript(htmlDoc);
     console.log("AppName", AppName);
-    this.Apps[AppName] = function(){                        
+    console.log("AppName", AppName);
+    this.setAPP(AppName, html, css, javascript);
+  }
+  setAPP(){
+    this.APPS[AppName] = function(){                        
       return new class _ {
         peerID = 0;  // needs to generated
         html = html;
@@ -72,7 +76,6 @@ class WEBAPPS {
         }
       }
     }
-    console.log("AppName", AppName);
   }
   parseHTML(htmlDoc){
     const templateTags = htmlDoc.querySelectorAll('body');
@@ -100,7 +103,7 @@ class WEBAPPS {
               const globalFunctions = this.extractGlobalScopeFunctions(scriptContent);
               const globalClasses   = this.extractGlobalClassFunctions(scriptContent);
               const globalVariables = this.extractGlobalVariables(scriptContent);    
-              this.Apps[AppName]["javascript"] = {
+              this.APPS[AppName]["javascript"] = {
                   globalVariables,
                   globalFunctions,
                   globalClasses,
