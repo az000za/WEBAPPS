@@ -27,16 +27,23 @@ class WEBAPPS {
     console.log("parsing url", url);
     console.log("data", data);
     const fileName = url.split('/').pop(); // Changed the order of methods to split the URL
+    console.log("1");
     const _html_ = data;
+    console.log("2");
     const parser = new DOMParser();
+    console.log("3");
     const htmlDoc = parser.parseFromString(_html_, 'text/html');
+    console.log("4");
     const body = htmlDoc.body.cloneNode(true); // Changed 'doc' to 'htmlDoc'
     console.log("imported ", url);
     console.log(_html_); // Changed 'html' to '_html_'
     const AppName = fileName.split(".").shift(); // Changed 'slice()' to 'shift()'
+    console.log("5");
     // Assuming these functions are defined elsewhere in your code
     const html = this.parseHTML(htmlDoc); 
+    console.log("6");
     const css = this.parseCSS(htmlDoc); 
+    console.log("7");
     const javascript = this.parseJavaScript(htmlDoc); 
     console.log("AppName", AppName);
     console.log("AppName", AppName); // Repeated 'console.log'; consider removing one 
