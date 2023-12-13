@@ -15,13 +15,13 @@ class WEBAPPS {
           mode: "no-cors"
         })
         .then(response => response.text())
-        .then(this.parseAPP)
+        .then(this.parseHTMLAPP)
         .catch(error => console.error('Error importing HTML file:', url));
   }
   async useAPP(appName){
     
   }
-  parseAPP(webAppLink){
+  parseHTMLAPP(webAppLink){
     const url = webAppLink;
     const fileName = filePath.slice().split('/').pop();
     const _html_ = data;
