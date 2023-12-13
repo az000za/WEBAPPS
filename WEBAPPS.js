@@ -25,6 +25,7 @@ class WEBAPPS {
   }
   parseHTMLAPP(webAppLink, data){
     console.log("parsing url", webAppLink);
+    console.log("data", data);
     const url = webAppLink;
     const fileName = url.slice().split('/').pop();
     const _html_ = data;
