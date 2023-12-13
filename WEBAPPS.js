@@ -34,19 +34,23 @@ class WEBAPPS {
     console.log("3");
     const htmlDoc = parser.parseFromString(_html_, 'text/html');
     console.log("4");
+    console.log("htmlDoc", htmlDoc);
     const body = htmlDoc.body.cloneNode(true); // Changed 'doc' to 'htmlDoc'
+    console.log("body", body);
     console.log("imported ", url);
     console.log(_html_); // Changed 'html' to '_html_'
     const AppName = fileName.split(".").shift(); // Changed 'slice()' to 'shift()'
+    console.log("AppName", AppName);
     console.log("5");
     // Assuming these functions are defined elsewhere in your code
     const html = this.parseHTML(htmlDoc); 
     console.log("6");
+    console.log("parsed html", html);
     const css = this.parseCSS(htmlDoc); 
     console.log("7");
-    const javascript = this.parseJavaScript(htmlDoc); 
-    console.log("AppName", AppName);
-    console.log("AppName", AppName); // Repeated 'console.log'; consider removing one 
+    console.log("parsed css");
+    const javascript = this.parseJavaScript(htmlDoc);
+    console.log("parsed javascript");
     this.setAPP(AppName, html, css, javascript);
   }
   setAPP(){
