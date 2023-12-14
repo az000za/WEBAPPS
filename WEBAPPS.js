@@ -70,7 +70,7 @@ class WEBAPPS {
           console.error("load unprogrammed");
         }
         refresh(){
-          console.error("refresh unprogrammed
+          console.error("refresh unprogrammed");
         }
         stop(){
           console.error("stop unprogrammed");
