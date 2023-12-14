@@ -56,9 +56,9 @@ class WEBAPPS {
     console.log("parsed css", css);
     const javascript = this.parseJavaScript(htmlDoc);
     console.log("parsed javascript", javascript);
-    this.setAPP(AppName, html, css, javascript);
+    this.setAPP({AppName, html, css, javascript});
   }
-  setAPP(AppName){
+  setAPP({AppName, html, css, javascript}){
     this.APPS[AppName] = function(){                        
       return new class _ {
         peerID = 0;  // needs to generated
