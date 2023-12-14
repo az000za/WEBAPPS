@@ -19,8 +19,14 @@ class WEBAPPS {
         .catch(error => console.error('Error importing HTML file:'+url+"..."+error));
   }
   useAPP(AppName){
-    console.log("useApp this.APPS", this.APPS);
-    return this.APPS[AppName];
+    return new Promise((resolve, reject) => {
+      let checkExist = setInterval(() => {
+        if (this.APPS.hasOwnProperty(AppName)) {
+          clearInterval(checkExist);
+          resolve(this.APPS[AppName]);
+        }
+      }, 10); // check every 10ms
+    });
   }
   parseHTMLAPP(url, data){
     console.log("parsing url", url);
