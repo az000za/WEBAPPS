@@ -10,7 +10,7 @@ class WEBAPPS {
       return this;
   }
   async fetchApp(url){
-    console.log(`fetching url: `,url);
+    // console.log(`fetching url: `,url);
     fetch(url, {
           mode: "no-cors"
         })
@@ -80,16 +80,16 @@ class WEBAPPS {
   parseHTML(htmlDoc){
     const templateTags = htmlDoc.querySelectorAll('body');
     templateTags.forEach((templateTag, index)=>{
-      console.log(`Script ${index + 1}:`);
-      console.log(templateTag.textContent); // Extract the html code      
+      // console.log(`Script ${index + 1}:`);
+      // console.log(templateTag.textContent); // Extract the html code      
     });
     return templateTags;
   }
   parseCSS(htmlDoc){
       const styleTags = htmlDoc.querySelectorAll('style');
       styleTags.forEach((styleTag, index)=>{
-        console.log(`Script ${index + 1}:`);
-        console.log(styleTag.textContent); // Extract the style code      
+        // console.log(`Script ${index + 1}:`);
+        // console.log(styleTag.textContent); // Extract the style code      
       });
       return styleTags;
   }
