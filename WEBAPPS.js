@@ -17,7 +17,7 @@ class WEBAPPS {
         })
         .then(response => response.text())
         .then(data => { this.parseHTMLAPP(url, data); })
-        .catch(error => console.error('Error importing HTML file:', url));
+        .catch(error => console.error('Error importing HTML file:'+url+"..."+error));
   }
   useAPP(appName){
     console.log("this.APPS", this.APPS);
