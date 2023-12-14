@@ -19,9 +19,9 @@ class WEBAPPS {
         .then(data => { this.parseHTMLAPP(url, data); })
         .catch(error => console.error('Error importing HTML file:'+url+"..."+error));
   }
-  useAPP(appName){
+  useAPP(AppName){
     console.log("this.APPS", this.APPS);
-    return this.APPS[appName];
+    return this.APPS[AppName];
   }
   parseHTMLAPP(url, data){
     console.log("parsing url", url);
@@ -53,7 +53,7 @@ class WEBAPPS {
     console.log("parsed javascript", javascript);
     this.setAPP(AppName, html, css, javascript);
   }
-  setAPP(){
+  setAPP(AppName){
     this.APPS[AppName] = function(){                        
       return new class _ {
         peerID = 0;  // needs to generated
