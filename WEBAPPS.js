@@ -7,7 +7,6 @@ class WEBAPPS {
       for (const url of webAppLinks) {
         await this.fetchApp(url);
       }
-      console.log("this.APPS", this.APPS);
       return this;
   }
   async fetchApp(url){
@@ -20,7 +19,7 @@ class WEBAPPS {
         .catch(error => console.error('Error importing HTML file:'+url+"..."+error));
   }
   useAPP(AppName){
-    console.log("this.APPS", this.APPS);
+    console.log("useApp this.APPS", this.APPS);
     return this.APPS[AppName];
   }
   parseHTMLAPP(url, data){
