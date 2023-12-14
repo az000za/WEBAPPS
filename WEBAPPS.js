@@ -96,13 +96,15 @@ class WEBAPPS {
       console.log(`Script ${index + 1}:`);
       console.log(templateTag.textContent); // Extract the html code      
     });
+    return templateTags;
   }
   parseCSS(htmlDoc){
-      const scriptTags = htmlDoc.querySelectorAll('script');
+      const styleTags = htmlDoc.querySelectorAll('style');
       styleTags.forEach((styleTag, index)=>{
         console.log(`Script ${index + 1}:`);
         console.log(styleTag.textContent); // Extract the style code      
       });
+      return styleTags;
   }
   parseJavaScript(htmlDoc){
       const scriptTags = htmlDoc.querySelectorAll('script');
