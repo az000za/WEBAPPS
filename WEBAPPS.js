@@ -48,9 +48,9 @@ class WEBAPPS {
     console.log("parsed html", html);
     const css = this.parseCSS(htmlDoc); 
     console.log("7");
-    console.log("parsed css");
+    console.log("parsed css", css);
     const javascript = this.parseJavaScript(htmlDoc);
-    console.log("parsed javascript");
+    console.log("parsed javascript", javascript);
     this.setAPP(AppName, html, css, javascript);
   }
   setAPP(){
