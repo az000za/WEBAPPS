@@ -29,33 +29,15 @@ class WEBAPPS {
     });
   }
   parseHTMLAPP(url, data){
-    console.log("parsing url", url);
-    console.log("data", data);
     const fileName = url.split('/').pop(); // Changed the order of methods to split the URL
-    console.log("1");
     const _html_ = data;
-    console.log("2");
     const parser = new DOMParser();
-    console.log("3");
     const htmlDoc = parser.parseFromString(_html_, 'text/html');
-    console.log("4");
-    console.log("htmlDoc", htmlDoc);
     const body = htmlDoc.body.cloneNode(true); // Changed 'doc' to 'htmlDoc'
-    console.log("body", body);
-    console.log("imported ", url);
-    console.log(_html_); // Changed 'html' to '_html_'
     const AppName = fileName.split(".").shift(); // Changed 'slice()' to 'shift()'
-    console.log("AppName", AppName);
-    console.log("5");
-    // Assuming these functions are defined elsewhere in your code
     const html = this.parseHTML(htmlDoc); 
-    console.log("6");
-    console.log("parsed html", html);
     const css = this.parseCSS(htmlDoc); 
-    console.log("7");
-    console.log("parsed css", css);
     const javascript = this.parseJavaScript(htmlDoc);
-    console.log("parsed javascript", javascript);
     this.setAPP({AppName, html, css, javascript});
   }
   setAPP({AppName, html, css, javascript}){
@@ -114,23 +96,25 @@ class WEBAPPS {
   parseJavaScript(htmlDoc){
       const scriptTags = htmlDoc.querySelectorAll('script');
       // Loop through each script tag
+      let globalFunctions = [];
+      let globalClasses = [];
+      let globalVariables = [];
       scriptTags.forEach((scriptTag, index) => {
           const scriptContent = scriptTag.textContent;
           // Class declaration extraction
           const classRegex = /class\s+([a-zA-Z0-9_$]+)\s*\{(.*?)\}(?:;|$)/gm;
           let classMatch;
           while ((classMatch = classRegex.exec(scriptContent))) {
-              const globalFunctions = this.extractGlobalScopeFunctions(scriptContent);
-              const globalClasses   = this.extractGlobalClassFunctions(scriptContent);
-              const globalVariables = this.extractGlobalVariables(scriptContent);    
-              this.APPS[AppName]["javascript"] = {
-                  globalVariables,
-                  globalFunctions,
-                  globalClasses,
-              };
+              globalFunctions.push(...this.extractGlobalScopeFunctions(scriptContent));
+              globalClasses.push(...this.extractGlobalClassFunctions(scriptContent));
+              globalVariables.push(...this.extractGlobalVariables(scriptContent));
           }
       });
-    return scriptTags;
+      return {
+        globalVariables,
+        globalFunctions,
+        globalClasses,
+      };
   }
   extractGlobalScopeVariables(scriptContent) {
       // Initialize an empty array to store extracted variables
