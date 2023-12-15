@@ -103,7 +103,7 @@ class WEBAPPS {
           const scriptContent = scriptTag.textContent;
           globalFunctions.push(this.extractGlobalScopeFunctions(scriptContent));
           globalClasses.push(this.extractGlobalClasses(scriptContent));
-          globalVariables.push(this.extractGlobalVariables(scriptContent));
+          globalVariables.push(this.extractGlobalScopeVariables(scriptContent));
       });
       return {
         globalVariables,
