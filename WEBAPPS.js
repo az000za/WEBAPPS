@@ -101,14 +101,9 @@ class WEBAPPS {
       let globalVariables = [];
       scriptTags.forEach((scriptTag, index) => {
           const scriptContent = scriptTag.textContent;
-          // Class declaration extraction
-          const classRegex = /class\s+([a-zA-Z0-9_$]+)\s*\{(.*?)\}(?:;|$)/gm;
-          let classMatch;
-          while ((classMatch = classRegex.exec(scriptContent))) {
-              globalFunctions.push(...this.extractGlobalScopeFunctions(scriptContent));
-              globalClasses.push(...this.extractGlobalClassFunctions(scriptContent));
-              globalVariables.push(...this.extractGlobalVariables(scriptContent));
-          }
+          globalFunctions.push(...this.extractGlobalScopeFunctions(scriptContent));
+          globalClasses.push(...this.extractGlobalClassFunctions(scriptContent));
+          globalVariables.push(...this.extractGlobalVariables(scriptContent));
       });
       return {
         globalVariables,
