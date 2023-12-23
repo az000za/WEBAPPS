@@ -98,7 +98,7 @@ class WEBAPPS {
       // Loop through each script tag
       let globalFunctions = [];
       let globalClasses = [];
-      let globalVariables = [];
+      let globalVariables = [];    
       scriptTags.forEach((scriptTag, index) => {
           const scriptContent = scriptTag.textContent;
           console.log("script content: ");
@@ -113,31 +113,30 @@ class WEBAPPS {
         globalClasses,
       };
   }
-  extractGlobalScopeVariables(scriptContent) {
-      // Initialize an empty array to store extracted variables
-      let variables = {};
-      const variableRegex = /(?<!\bfunction\b)\b(var|let|const)\s+([a-zA-Z$_0-9]+)(?=\s*=\s*|,$)/gm;
-      const matches = scriptContent.match(variableRegex);
-      if (matches) {
-        // Push each extracted variable name to the variables array
-        matches.forEach(match => {
-          variables[match] = match.split(/\s+/)[1]
-        });
-      }
-      return variables;
-  }
-  extractGlobalScopeFunctions(scriptContent){
-      // Function declaration extraction
-      let functions = {};
-      const functionRegex = /function\s+([a-zA-Z0-9_$]+)\s*\((.*?)\)\s*\{(.*?)\}(?:;|$)/gm;
-      let functionMatch;
-      while ((functionMatch = functionRegex.exec(scriptContent))) {
+  // extractGlobalScopeVariables(scriptContent) {
+  //     // Initialize an empty array to store extracted variables
+  //     let variables = {};
+  //     const variableRegex = /(?<!\bfunction\b)\b(var|let|const)\s+([a-zA-Z$_0-9]+)(?=\s*=\s*|,$)/gm;
+  //     const matches = scriptContent.match(variableRegex);
+  //     if (matches) {
+  //       // Push each extracted variable name to the variables array
+  //       matches.forEach(match => {
+  //         variables[match] = match.split(/\s+/)[1]
+  //       });
+  //     }
+  //     return variables;
+  // }
+  extractGlobalScopeFunctions(scriptContent) {
+    let functions = {};
+    const functionRegex = /function\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\((.*?)\)\s*\{([\s\S]*?)\}(?=\s*(?:;|\}|$))/gm;
+    let functionMatch;
+    while ((functionMatch = functionRegex.exec(scriptContent))) {
         const functionName = functionMatch[1];
         const functionParameters = functionMatch[2];
         const functionBody = functionMatch[3];
         functions[functionName] = new Function(functionParameters, functionBody);
-      }
-      return functions;
+    }
+    return functions;
   }
   extractGlobalClasses(scriptContent) {
     // Regular expression to match class definitions
