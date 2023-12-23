@@ -101,6 +101,8 @@ class WEBAPPS {
       let globalVariables = [];
       scriptTags.forEach((scriptTag, index) => {
           const scriptContent = scriptTag.textContent;
+          console.log("script content: ");
+          console.log(scriptContent);
           globalFunctions.push(this.extractGlobalScopeFunctions(scriptContent));
           globalClasses.push(this.extractGlobalClasses(scriptContent));
           globalVariables.push(this.extractGlobalScopeVariables(scriptContent));
