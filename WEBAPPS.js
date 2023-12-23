@@ -113,19 +113,19 @@ class WEBAPPS {
         globalClasses,
       };
   }
-  // extractGlobalScopeVariables(scriptContent) {
-  //     // Initialize an empty array to store extracted variables
-  //     let variables = {};
-  //     const variableRegex = /(?<!\bfunction\b)\b(var|let|const)\s+([a-zA-Z$_0-9]+)(?=\s*=\s*|,$)/gm;
-  //     const matches = scriptContent.match(variableRegex);
-  //     if (matches) {
-  //       // Push each extracted variable name to the variables array
-  //       matches.forEach(match => {
-  //         variables[match] = match.split(/\s+/)[1]
-  //       });
-  //     }
-  //     return variables;
-  // }
+  extractGlobalScopeVariables(scriptContent) {
+      // Initialize an empty array to store extracted variables
+      let variables = {};
+      const variableRegex = /(?<!\bfunction\b)\b(var|let|const)\s+([a-zA-Z$_0-9]+)(?=\s*=\s*|,$)/gm;
+      const matches = scriptContent.match(variableRegex);
+      if (matches) {
+        // Push each extracted variable name to the variables array
+        matches.forEach(match => {
+          variables[match] = match.split(/\s+/)[1]
+        });
+      }
+      return variables;
+  }
   extractGlobalScopeFunctions(scriptContent) {
     let functions = {};
     const functionRegex = /function\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\((.*?)\)\s*\{([\s\S]*?)\}(?=\s*(?:;|\}|$))/gm;
